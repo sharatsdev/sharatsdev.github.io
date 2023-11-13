@@ -13,7 +13,7 @@ title: About Me
 
 </style>
 
-<img src="https://i.imgur.com/PQweYFf.jpg" />
+<img src="https://i.imgur.com/PQweYFf.jpg" alt="Sharat Sachin">
 
 I am an engineer currently working in the data science team at Nagarro, Gurgaon. I got my undergraduate computer science degree from the Bharati Vidyapeeth College of Engineering, Delhi. I am passionate about computers, with strong technical, business, and interpersonal skills for working in a team and successfully completing a project.
 
