@@ -212,8 +212,8 @@ Kafka is a streaming data store that decouples applications producing streaming 
 * select JupyterHub or Zeppelin in the software configuration when spinning up a new cluster
 * fully managed application with single sign-on, fully managed Jupyter Notebooks, automated infrastructure provisioning, and the ability to debug jobs without logging into the AWS Console or cluster
 * debug clusters and jobs using as few clicks as possible with native applications interfaces such as the Spark UI and the YARN Timeline service
-* EMR Notebooks <-> Sagemaker Notebook
-* EMR Studio <-> Sagemaker Studio
+* EMR Notebooks is like Sagemaker Notebook
+* EMR Studio is like Sagemaker Studio
 * EMR Cluster - a collection of EC2 instances, called a node, three types:
     1. Master node: manages the cluster, coordinates distribution of data and tasks among other nodes for processing, every cluster has a master node
     1. Core node: run tasks and store data in the Hadoop Distributed File System (HDFS), multi-node clusters have at least one core node.
