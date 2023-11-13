@@ -16,7 +16,7 @@ timezone: Asia/Calcutta
 
 title: Sharat Sachin # the main title
 
-tagline: Personal blog # it will display as the sub-title
+tagline: ML insights, simple notes, clear code # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Useful posts related to ML, data science, programming, tools and frameworks in general. Also creating my own short notes for various courses.
@@ -109,7 +109,7 @@ assets:
 pwa:
   enabled: true # the option for PWA feature
 
-paginate: 10
+paginate: 20
 
 # The base URL of your site
 baseurl: ""
