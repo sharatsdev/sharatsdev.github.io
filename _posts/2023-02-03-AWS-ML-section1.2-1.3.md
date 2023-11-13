@@ -133,7 +133,7 @@ This post gives a quick review on identifying and implementing data ingestion an
 * add data to an Kinesis Data Firehose delivery stream through Kinesis Agent or Firehose’s PutRecord and PutRecordBatch operations
 * PutRecord API uses the name of the delivery stream and the data record
 * supports built-in format conversion from data raw or JSON into formats like Parquet/ORC
-* transformations through Lambda (ex: CSV => JSON) 
+* transformations through Lambda (ex: CSV =\> JSON) 
 * lets you to dynamically partition your streaming data before delivery to S3 using static or dynamically defined keys like 'customer_id'
 * lets you compress your data before delivering it to Amazon S3 (supports GZIP, ZIP, and SNAPPY) (only GZIP for Redshift)
 * can back up all un-transformed records to your S3 bucket concurrently
@@ -218,7 +218,7 @@ Kafka is a streaming data store that decouples applications producing streaming 
     1. Master node: manages the cluster, coordinates distribution of data and tasks among other nodes for processing, every cluster has a master node
     1. Core node: run tasks and store data in the Hadoop Distributed File System (HDFS), multi-node clusters have at least one core node.
     1. Task node: only runs tasks and does not store data in HDFS, optional (can use spot instances)
-* launch EMR cluster (version >=5.23) with 3 master nodes and support high availability
+* launch EMR cluster (version \>=5.23) with 3 master nodes and support high availability
 * EMR is fault tolerant for node failures and continues job execution if a node goes down, provision a new node when a core node fails, will not replace nodes if all nodes in the cluster are lost
 * while a cluster is running you may increase the number of core nodes and you may either increase or decrease the number of task nodes
 * core nodes host persistent data in HDFS and cannot be removed, core nodes should be reserved for the capacity that is required until your cluster completes
