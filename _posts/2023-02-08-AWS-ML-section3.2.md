@@ -1,7 +1,10 @@
 ---
-layout: post
+title: AWS ML Speciality Notes (Part 3.2)
+date: 2023-02-08 00:00:00 +0530
 comments: true
-title: AWS ML Speciality (Part 3.2)
+categories: [aws, ml]
+tags: [aws]
+math: true
 ---
 
 This post gives a quick review on the selecting the appropriate model(s) for a given machine learning problem

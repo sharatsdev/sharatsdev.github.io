@@ -1,7 +1,10 @@
 ---
-layout: post
-comments: true
 title: AWS ML Speciality Notes (Part 1.1)
+date: 2023-02-02 00:00:00 +0530
+comments: true
+categories: [aws, ml]
+tags: [aws]
+math: true
 ---
 
 This post gives a quick review on creating data repositories for machine learning.

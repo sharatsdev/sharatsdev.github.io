@@ -1,7 +1,10 @@
 ---
-layout: post
+title: AWS ML Speciality Notes (Part 2.1)
+date: 2023-02-04 00:00:00 +0530
 comments: true
-title: AWS ML Speciality (Part 2.1)
+categories: [aws, ml]
+tags: [aws]
+math: true
 ---
 
 This post gives a quick review on sanitizing and preparing data for modelling.

@@ -6,7 +6,7 @@ categories: [competitive-programming]
 tags: [competitive-programming, c++, stl]
 ---
 
-This post is a continuation on the series on the Standard Template Library (STL). It focuses on iterators, and is the second of a many part series.
+This post is a continuation on the series on the Standard Template Library (STL). It focuses on iterators, and is the second of a three part series.
 
 <!--more-->
 

@@ -6,7 +6,7 @@ categories: [competitive-programming]
 tags: [competitive-programming, c++, stl]
 ---
 
-You may already know C++. Still, you may notice that others often write code faster and more concisely than you. You may wonder how others code ends up being so much shorter than yours. Why is this? More often than not, it is the knowledge they possess of the language constructs that exist in C++, that are especially suited for competitive programming. This series will help you get up to speed with the tools at your disposal, especially the Standard Template Library (STL). This post focuses on containers, and will be the first of a many part series.
+You may already know C++. Still, you may notice that others often write code faster and more concisely than you. You may wonder how others code ends up being so much shorter than yours. Why is this? More often than not, it is the knowledge they possess of the language constructs that exist in C++, that are especially suited for competitive programming. This series will help you get up to speed with the tools at your disposal, especially the Standard Template Library (STL). This post focuses on containers, and will be the first of a three part series.
 
 <!--more-->
 

@@ -1,7 +1,10 @@
 ---
-layout: post
+title: AWS ML Speciality Notes (Part 3.1)
+date: 2023-02-07 00:00:00 +0530
 comments: true
-title: AWS ML Speciality (Part 3.1)
+categories: [aws, ml]
+tags: [aws]
+math: true
 ---
 
 This post gives a quick review on the framing of business problems as machine learning problems.

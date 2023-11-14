@@ -1,7 +1,10 @@
 ---
-layout: post
+title: AWS ML Speciality Notes (Part 4.2)
+date: 2023-02-13 00:00:00 +0530
 comments: true
-title: AWS ML Speciality (Part 4.2)
+categories: [aws, ml]
+tags: [aws]
+math: true
 ---
 
 This post gives a quick review on recommending and implementing the appropriate machine learning services and features for a given problem.
