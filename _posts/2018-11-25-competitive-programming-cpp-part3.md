@@ -15,7 +15,7 @@ The algorithms of STL are functions designed to be used on the STL containers di
 
 Some of these functions support binary predicates too, which are basically functions, `bin_pred(*iter1, *iter2)` or `bin_pred(*iter1, val)` that are convertible to `bool`.
 
-## Non-modifying sequence operations:
+## Non-modifying sequence operations
 
 1.  `all_of` (true if condition returns true for all elements in the range, false otherwise. Returns true if the range is empty)
 2.  `any_of` (true if condition returns true for at least one element in the range, false otherwise. Returns false if the range is empty)
@@ -127,7 +127,7 @@ cout << distance(s.begin(), r1) << '\n'   // 3
      << (s.end() == r2) << '\n';          // 1
 ```
 
-## Modifying sequence operations:)
+## Modifying sequence operations
 
 1.  `copy` (copy range of elements)
 2.  `copy_n` (copy n elements)
@@ -320,7 +320,7 @@ sample(v.begin(), v.end(), v2.begin(), 3, default_random_engine());
 for (int i : v2) cout << i << ' '; // 4 1 5
 ```
 
-## Partitions:
+## Partitions
 
 1.  `is_partitioned` (Test whether range is partitioned)
 2.  `partition` (Partition range in two)
@@ -362,7 +362,7 @@ cout << distance(v.begin(), r1); // 2
 // returns the first element in the second partition
 ```
 
-## Sorting:
+## Sorting
 
 1.  `sort` (Sort elements in range)
 ```cpp
@@ -374,9 +374,9 @@ sort(v.begin(), v.end(), greater<int>()); // sort in descending order
 
 2.  `stable_sort` (Sort elements preserving order of equivalents)
 ```cpp
-vector<vector<int>> v = {{1, 3}, {1, 1}, {2, 2}, {1, 2}, {2, 3}, {2, 1}};
+vector<vector<int>> v = { {1, 3}, {1, 1}, {2, 2}, {1, 2}, {2, 3}, {2, 1} };
 stable_sort(v.begin(), v.end(), [](auto& a, auto& b) { return a[0] < b[0]; });
-// v = {{1, 3}, {1, 1}, {1, 2}, {2, 2}, {2, 3}, {2, 1}}
+// v = { {1, 3}, {1, 1}, {1, 2}, {2, 2}, {2, 3}, {2, 1} }
 ```
 
 3.  `partial_sort` (Partially sort elements in range)
@@ -420,7 +420,7 @@ cout << v[1] << '\n'; // 9 (the second largest element)
 ```
 
 
-## Binary search (operating on partitioned/sorted ranges):
+## Binary search
 
 1.  `lower_bound` (Return iterator to the first element in the range [first,last) which does not compare less than val)
 2.  `upper_bound` (Return iterator to the first element in the range [first,last) which compares greater than val)
@@ -452,7 +452,7 @@ vector<int> v = { 1, 2, 3, 4, 5, 7, 8, 9 };
 cout << binary_search(v.begin(), v.end(), 5); // 4
 ```
 
-## Merge (operating on sorted ranges):
+## Merge
 
 1.  `merge` (Merge sorted ranges)
 ```cpp
@@ -501,7 +501,7 @@ set_symmetric_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), back_insert
 ```
 
 
-## Heap:
+## Heap
 
 1.  `push_heap` (Push element into heap range)
 2.  `pop_heap` (Pop element from heap range)
@@ -532,7 +532,7 @@ cout << distance(v.begin(), r1); // 2 (the first element that is not in heap ord
 ```
 
 
-## Min/max:
+## Min/max
 
 1.  `min` (Return the smallest)
 2.  `max` (Return the largest)
@@ -562,7 +562,7 @@ cout << clamp(0, 1, 4) << '\n'; // 1
 cout << clamp(5, 1, 4) << '\n'; // 4
 ```
 
-## Other:
+## Other
 
 1.  `lexicographical_compare` (Lexicographical less-than comparison)
 ```cpp
