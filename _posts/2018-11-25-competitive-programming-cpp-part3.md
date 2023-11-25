@@ -6,7 +6,7 @@ categories: [competitive-programming]
 tags: [competitive-programming, c++, stl]
 ---
 
-This post is a continuation on the series on the Standard Template Library (STL). It focuses on iterators, and is the last of a three part series.
+This post is a continuation on the series on the Standard Template Library (STL). It focuses on algorithms, and is the last of a three part series.
 
 <!--more-->
 
@@ -365,29 +365,141 @@ cout << distance(v.begin(), r1); // 2
 ## Sorting:
 
 1.  `sort` (Sort elements in range)
+```cpp
+vector<int> v = { 6, 2, 8, 1, 3, 9 };
+sort(v.begin(), v.end());
+sort(v.rbegin(), v.rend()); // sort in descending order
+sort(v.begin(), v.end(), greater<int>()); // sort in descending order
+```
+
 2.  `stable_sort` (Sort elements preserving order of equivalents)
+```cpp
+vector<vector<int>> v = {{1, 3}, {1, 1}, {2, 2}, {1, 2}, {2, 3}, {2, 1}};
+stable_sort(v.begin(), v.end(), [](auto& a, auto& b) { return a[0] < b[0]; });
+// v = {{1, 3}, {1, 1}, {1, 2}, {2, 2}, {2, 3}, {2, 1}}
+```
+
 3.  `partial_sort` (Partially sort elements in range)
+```cpp
+vector<int> v = { 6, 2, 8, 1, 3, 9 };
+partial_sort(v.begin(), v.begin() + 3, v.end());
+// v = {1, 2, 3, 6, 8, 9}
+```
+
 4.  `partial_sort_copy` (copy and partially sort range)
+```cpp
+vector<int> v = { 6, 2, 8, 1, 3, 9 };
+vector<int> v2(3);
+partial_sort_copy(v.begin(), v.end(), v2.begin(), v2.end());
+for (int i : v2) cout << i << ' '; // 1 2 3
+```
+
 5.  `is_sorted` (check whether range is sorted)
+```cpp
+vector<int> v = { 1, 2, 3, 4, 5 };
+cout << is_sorted(v.begin(), v.end()); // 1
+cout << is_sorted(v.begin(), v.end(), greater<int>()); // 0
+```
+
 6.  `is_sorted_until` (Find first unsorted element in range)
+```cpp
+vector<int> v = { 1, 2, 3, 4, 2, 5 };
+auto r1 = is_sorted_until(v.begin(), v.end());
+cout << *r1 << '\n'; // 2 (since 2 is the first unsorted element)
+cout << distance(v.begin(), r1); // 4
+```
+
 7.  `nth_element` (Sort element in range)
+```cpp
+vector<int> v = {5, 10, 6, 4, 3, 2, 6, 7, 9, 3};
+auto m = v.begin() + v.size()/2;
+nth_element(v.begin(), m, v.end());
+cout << *m << '\n'; // 5 (the median)
+nth_element(v.begin(), v.begin() + 1, v.end(), greater<int>());
+cout << v[1] << '\n'; // 9 (the second largest element)
+```
+
 
 ## Binary search (operating on partitioned/sorted ranges):
 
-1.  `lower_bound` (Return iterator to lower bound)
-2.  `upper_bound` (Return iterator to upper bound)
-3.  `equal_range` (Get subrange of equal elements)
+1.  `lower_bound` (Return iterator to the first element in the range [first,last) which does not compare less than val)
+2.  `upper_bound` (Return iterator to the first element in the range [first,last) which compares greater than val)
+```cpp
+// lower_bound returns an iterator pointing to the first element in the range [first,last) which does not compare less than val
+vector<int> v = { 1, 2, 3, 4, 5, 7, 8, 9 };
+auto r1 = lower_bound(v.begin(), v.end(), 3); 
+// *r1 == 3 and distance(v.begin(), r1) == 2
+auto r2 = lower_bound(v.begin(), v.end(), 6);
+// *r2 == 7 and distance(v.begin(), r2) == 5
+auto r3 = upper_bound(v.begin(), v.end(), 3);
+// *r3 == 4 and distance(v.begin(), r3) == 3
+auto r4 = upper_bound(v.begin(), v.end(), 6);
+// *r4 == 7 and distance(v.begin(), r4) == 5
+// upper_bound and lower_bound are the same if the element is not found
+// if element is found, upper bound points to the element after the last occurence of the searched element
+```
+
+3.  `equal_range` (Get pair of iterators defining range of equal elements)
+```cpp
+vector<int> v = { 1, 2, 3, 5, 5, 5, 8, 9 };
+auto r1 = equal_range(v.begin(), v.end(), 5);
+// distance(v.begin(), r1.first) == 3 and distance(v.begin(), r1.second) == 6
+```
+
 4.  `binary_search` (Test if value exists in sorted sequence)
+```cpp
+vector<int> v = { 1, 2, 3, 4, 5, 7, 8, 9 };
+cout << binary_search(v.begin(), v.end(), 5); // 4
+```
 
 ## Merge (operating on sorted ranges):
 
 1.  `merge` (Merge sorted ranges)
-2.  `inplace_merge` (Merge consecutive sorted ranges)
-3.  `includes` (Test whether sorted range includes another sorted range)
-4.  `set_union` (Union of two sorted ranges)
-5.  `set_intersection` (Intersection of two sorted ranges)
-6.  `set_difference` (Difference of two sorted ranges)
-7.  `set_symmetric_difference` (Symmetric difference of two sorted ranges)
+```cpp
+vector<int> v1 = { 1, 4, 6, 8 };
+vector<int> v2 = { 2, 3, 5, 7 }; // v1 and v2 are sorted
+vector<int> v3(v1.size() + v2.size());
+merge(v1.begin(), v1.end(), v2.begin(), v2.end(), v3.begin());
+```
+
+2.  `inplace_merge` (Merges two consecutive sorted ranges [first,middle) and [middle,last) into one sorted range [first,last))
+```cpp
+vector<int> v = { 1, 4, 6, 2, 3, 5, 7, 8 };
+inplace_merge(v.begin(), v.begin() + 3, v.end());
+// v = { 1, 2, 3, 4, 5, 6, 7, 8 }
+
+auto merge_sort = [](vector<int>::iterator l, vector<int>::iterator r)
+{
+    if (r - l > 1)
+    {
+        auto m = l + (r - l)/2;
+        merge_sort(l, m);
+        merge_sort(m, r);
+        inplace_merge(l, m, r);
+    }
+};
+vector<int> v1 = { 7, 3, 5, 1, 6, 2, 4, 8 };
+merge_sort(v1.begin(), v1.end());
+// v1 = { 1, 2, 3, 4, 5, 6, 7, 8 }
+```
+
+3.  `set_union` (Union of two sorted ranges)
+4.  `set_intersection` (Intersection of two sorted ranges)
+5.  `set_difference` (Difference of two sorted ranges)
+6.  `set_symmetric_difference` (Symmetric difference of two sorted ranges)
+```cpp
+vector<int> v1 = { 1, 2, 3, 4, 5 }, v2 = { 3, 4, 5, 6, 7 }, v3 , v4, v5, v6; 
+// v1 and v2 must be sorted
+set_union(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
+// v3 = { 1, 2, 3, 4, 5, 6, 7 }
+set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v4));
+// v4 = { 3, 4, 5 }
+set_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v5));
+// v5 = { 1, 2 }
+set_symmetric_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v6));
+// v6 = { 1, 2, 6, 7 } // elements that are in either of the ranges, but not in both
+```
+
 
 ## Heap:
 
@@ -397,32 +509,138 @@ cout << distance(v.begin(), r1); // 2
 4.  `sort_heap` (Sort elements of heap)
 5.  `is_heap` (Test if range is heap)
 6.  `is_heap_until` (Find first element not in heap order)
+```cpp
+vector<int> v = { 3, 1, 4, 1, 5, 2, 6, 5, 3, 5 };
+make_heap(v.begin(), v.end()); // creates a max heap
+// make_heap(v.begin(), v.end(), greater<int>()); // creates a min heap
+// 6 5 4 5 5 2 3 1 3 1
+v.push_back(7);
+push_heap(v.begin(), v.end());
+// 7 6 4 5 5 2 3 1 3 1 5
+v.pop_heap(v.begin(), v.end()); // moves the largest element to the end
+// 6 5 4 5 5 2 3 1 3 1 7
+int largest = v.back();
+v.pop_back();
+// 6 5 4 5 5 2 3 1 3 1 
+sort_heap(v.begin(), v.end());
+// 1 1 2 3 3 4 5 5 5 6
+
+cout << is_heap(v.begin(), v.end()); // 0
+
+auto r1 = is_heap_until(v.begin(), v.end());
+cout << distance(v.begin(), r1); // 2 (the first element that is not in heap order)
+```
+
 
 ## Min/max:
 
 1.  `min` (Return the smallest)
 2.  `max` (Return the largest)
-3.  `minmax` (Return smallest and largest elements)
+3.  `minmax` (Return pair of elements, first is smallest, second is largest)
+```cpp
+cout << min(3, 4) << '\n'; // 3
+cout << max(3, 4) << '\n'; // 4
+cout << minmax(3, 4).first << ' ' << minmax(3, 4).second << '\n'; // 3 4
+```
 4.  `min_element` (Return smallest element in range)
 5.  `max_element` (Return largest element in range)
 6.  `minmax_element` (Return smallest and largest elements in range)
+```cpp
+vector<int> v = { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 };
+auto r1 = min_element(v.begin(), v.end());
+cout << *r1 << '\n'; // 1
+auto r2 = max_element(v.begin(), v.end());
+cout << *r2 << '\n'; // 9
+auto [r3, r4] = minmax_element(v.begin(), v.end());
+cout << *r3 << ' ' << *r4 << '\n'; // 1 9
+```
+
 7.  `clamp` (clamps a value between a pair of boundary values)
+```cpp
+cout << clamp(3, 1, 4) << '\n'; // 3
+cout << clamp(0, 1, 4) << '\n'; // 1
+cout << clamp(5, 1, 4) << '\n'; // 4
+```
 
 ## Other:
 
 1.  `lexicographical_compare` (Lexicographical less-than comparison)
-2.  `next_permutation` (Transform range to next permutation)
-3.  `prev_permutation` (Transform range to previous permutation)
+```cpp
+vector<char> v1 = { 'a', 'b', 'c', 'd' };
+vector<char> v2 = { 'c', 'b', 'a', 'd' };
+cout << lexicographical_compare(v1.begin(), v1.end(), v2.begin(), v2.end()); // 1
+```
+
+2.  `next_permutation` (Transform range to next permutation, i.e. rearranges the elements in the range [first,last) into the next lexicographically greater permutation)
+3.  `prev_permutation` (Transform range to previous permutation, i.e. rearranges the elements in the range [first,last) into the previous lexicographically-ordered permutation)
+```cpp
+vector<int> v = { 1, 2, 3 };
+do {
+    for (int i : v) cout << i << ' ';
+    cout << '\n';
+} while (next_permutation(v.begin(), v.end()));
+// 1 2 3 
+// 1 3 2 
+// 2 1 3 
+// 2 3 1 
+// 3 1 2 
+// 3 2 1 
+
+reverse(v.begin(), v.end()); // turning {1, 2, 3} into {3, 2, 1}
+cout << '\n';
+do {
+    for (int i : v) cout << i << ' ';
+    cout << '\n';
+} while (prev_permutation(v.begin(), v.end()));
+// 3 2 1 
+// 3 1 2 
+// 2 3 1 
+// 2 1 3 
+// 1 3 2 
+// 1 2 3 
+```
 
 ## Numeric operations (defined in `<numeric>`)
 1. `iota` (Fills a range with successive increments of the starting value)
-1. `accumulate` (sums up a range of elements)
-2. `inner_product` (computes the inner product of two ranges of elements)
-3. `adjacent_difference` (computes the differences between adjacent elements in a range)
-4. `partial_sum` (computes the partial sum of a range of elements)
-5. `reduce` (similar to std::accumulate, except out of order)
-6. `exclusive_scan` (similar to std::partial_sum, excludes the ith input element from the ith sum)
-7. `inclusive_scan` (similar to std::partial_sum, includes the ith input element in the ith sum)
-8. `transform_reduce` (applies an invocable, then reduces out of order)
-9. `transform_exclusive_scan` (applies an invocable, then calculates exclusive scan)
-10. `transform_inclusive_scan` (applies an invocable, then calculates inclusive scan)
+```cpp
+vector<int> v(5);
+iota(v.begin(), v.end(), 1);
+// v = {1, 2, 3, 4, 5}
+```
+
+2. `accumulate` (sums up a range of elements)
+```cpp
+vector<int> v = {1, 2, 3, 4, 5};
+auto r1 = accumulate(v.begin(), v.end(), 0);
+cout << r1 << '\n'; // 15
+auto r2 = accumulate(v.begin(), v.end(), 1, multiplies<int>());
+cout << r2 << '\n'; // 120
+```
+
+3. `inner_product` (computes the inner product of two ranges of elements)
+```cpp
+vector<int> v1 = {1, 2, 3, 4, 5};
+vector<int> v2 = {1, 0, 3, 0, 1};
+auto r1 = inner_product(v1.begin(), v1.end(), v2.begin(), 0);
+cout << r1 << '\n'; // 15
+auto r2 = inner_product(v1.begin(), v1.end(), v2.begin(), 1, multiplies<int>(), plus<int>());
+cout << r2 << '\n'; // 576 (1+1)*(2+0)*(3+3)*(4+0)*(5+1)
+auto r3 = inner_product(v1.begin(), v1.end(), v2.begin(), 0, plus<int>(), equal_to<int>());
+cout << r3 << '\n'; // 2 (1==1) + (2==0) + (3==3) + (4==0) + (5==1) (number of equal pairs)
+```
+
+4. `adjacent_difference` (computes the differences between adjacent elements in a range)
+```cpp
+vector<int> v = {4, 6, 9, 13, 18, 19, 19, 15, 10};
+adjacent_difference(v.begin(), v.end(), v.begin());
+// v = {4, 2, 3, 4, 5, 1, 0, -4, -5}
+```
+
+
+5. `partial_sum` (computes the partial sum of a range of elements)
+6. `reduce` (similar to std::accumulate, except out of order)
+7. `exclusive_scan` (similar to std::partial_sum, excludes the ith input element from the ith sum)
+8. `inclusive_scan` (similar to std::partial_sum, includes the ith input element in the ith sum)
+9. `transform_reduce` (applies an invocable, then reduces out of order)
+10. `transform_exclusive_scan` (applies an invocable, then calculates exclusive scan)
+11. `transform_inclusive_scan` (applies an invocable, then calculates inclusive scan)
